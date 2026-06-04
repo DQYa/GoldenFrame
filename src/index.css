@@ -1,0 +1,846 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: 'Inter', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #1a1a2e;
+    background: #f8f9fc;
+    overflow-x: hidden;
+  }
+
+  #root {
+    overflow-x: hidden;
+  }
+
+  /* Prevent horizontal scroll on mobile */
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+@layer components {
+  /* Glass panel - core visual style */
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-xl border border-white/80;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+
+  .glass-panel-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+  .glass-panel-hover:hover {
+    @apply bg-white/85 shadow-lg;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
+    transform: translateY(-2px);
+  }
+
+  /* Section titles */
+  .section-title {
+    @apply text-2xl md:text-3xl font-semibold text-gray-900 tracking-tight;
+  }
+
+  .section-subtitle {
+    @apply text-sm md:text-base text-gray-500 mt-2 font-light;
+  }
+
+  /* Glass button */
+  .glass-btn {
+    @apply px-6 py-3 rounded-xl bg-white/60 backdrop-blur-md border border-white/60
+           text-gray-800 font-medium text-sm transition-all duration-300
+           hover:bg-white/90 hover:shadow-md hover:-translate-y-0.5
+           active:scale-[0.98];
+  }
+
+  .glass-btn-primary {
+    @apply glass-btn bg-primary-500/90 text-white border-primary-400/30
+           hover:bg-primary-500;
+  }
+
+  /* Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  /* ========== Fullpage Scroll ========== */
+  .fp-container {
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .fp-container::-webkit-scrollbar { display: none; }
+
+  .fp-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .fp-section-scroll {
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fp-section-scroll::-webkit-scrollbar { width: 3px; }
+  .fp-section-scroll::-webkit-scrollbar-track { background: transparent; }
+  .fp-section-scroll::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: 'Noto Serif SC', 'Source Serif 4', Georgia, serif;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #4a3728;
+    background: #f5f0e6;
+    overflow-x: hidden;
+    /* 绾稿紶绾圭悊搴曡壊 */
+    background-image:
+      url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+  }
+
+  #root {
+    overflow-x: hidden;
+  }
+
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* 閫変腑棰滆壊 */
+  ::selection {
+    background: rgba(180, 140, 100, 0.25);
+    color: #4a3728;
+  }
+}
+
+@layer components {
+  /* ========== 绾稿紶椤甸潰瀹瑰櫒 ========== */
+  .book-page {
+    @apply relative mx-auto max-w-4xl;
+    background: linear-gradient(
+      180deg,
+      #fdfaf3 0%,
+      #faf6ee 8%,
+      #f5f0e6 50%,
+      #faf6ee 92%,
+      #fdfaf3 100%
+    );
+    box-shadow:
+      0 0 40px rgba(0, 0, 0, 0.04),
+      0 0 0 1px rgba(0, 0, 0, 0.02),
+      0 4px 12px rgba(0, 0, 0, 0.03);
+  }
+
+  /* 椤甸潰灞曞紑鏁堟灉 */
+  .book-spread {
+    @apply relative;
+    /* 妯℃嫙涔﹁剨闃村奖 */
+    background:
+      linear-gradient(to right, transparent 48%, rgba(0,0,0,0.015) 49%, rgba(0,0,0,0.03) 50%, rgba(0,0,0,0.015) 51%, transparent 52%);
+  }
+
+  /* ========== 鎷嶇珛寰楃収鐗?========== */
+  .polaroid {
+    @apply bg-white inline-block;
+    padding: 10px 10px 32px 10px;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: all 0.35s ease;
+  }
+
+  .polaroid:hover {
+    box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.13), 0 2px 6px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px) rotate(0deg) !important;
+    z-index: 20;
+  }
+
+  .polaroid img {
+    @apply w-full object-cover;
+    aspect-ratio: 1;
+  }
+
+  .polaroid-caption {
+    @apply text-center text-xs text-ink-600 mt-1.5;
+    font-family: 'Ma Shan Zheng', 'Caveat', cursive;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  /* ========== 鑳跺嵎鏉?========== */
+  .film-strip {
+    @apply relative bg-gray-900 py-4 overflow-hidden;
+    /* 涓婃柟榻垮瓟 */
+    background-image:
+      radial-gradient(circle, rgba(245,240,230,0.5) 1.2px, transparent 1.2px),
+      radial-gradient(circle, rgba(245,240,230,0.5) 1.2px, transparent 1.2px);
+    background-size: 18px 24px, 18px 24px;
+    background-position: 0 6px, 0 calc(100% - 6px);
+    background-repeat: repeat-x, repeat-x;
+  }
+
+  .film-strip-inner {
+    @apply flex gap-3 px-4 overflow-x-auto;
+    scrollbar-width: none;
+  }
+
+  .film-strip-inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .film-frame {
+    @apply flex-shrink-0 overflow-hidden rounded-sm;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #1a1a1a;
+  }
+
+  .film-frame img {
+    @apply w-full h-full object-cover;
+  }
+
+  /* ========== 鎵嬪啓鏍囬 ========== */
+  .handwritten-title {
+    font-family: 'Ma Shan Zheng', 'ZCOOL KuaiLe', cursive;
+    @apply text-ink-700 tracking-wide;
+    text-shadow: 1px 1px 0 rgba(180, 150, 120, 0.2);
+  }
+
+  .handwritten-subtitle {
+    font-family: 'Caveat', 'Ma Shan Zheng', cursive;
+    @apply text-ink-500;
+  }
+
+  /* ========== 鏃堕棿杞?========== */
+  .timeline-line {
+    @apply absolute left-1/2 top-0 bottom-0 w-px;
+    background: repeating-linear-gradient(
+      to bottom,
+      #c4a882 0px,
+      #c4a882 4px,
+      transparent 4px,
+      transparent 12px
+    );
+  }
+
+  /* ========== 绾歌兌甯?========== */
+  .washi-tape {
+    @apply absolute -top-3 left-1/2 -translate-x-1/2 rotate-[-2deg];
+    width: 60px;
+    height: 18px;
+    background: rgba(220, 200, 160, 0.7);
+    border: 1px solid rgba(180, 155, 120, 0.3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .washi-tape-accent {
+    background: rgba(200, 180, 140, 0.65);
+  }
+
+  /* ========== 渚跨绾告潯 ========== */
+  .paper-note {
+    @apply relative bg-paper-50 p-5;
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.03);
+    background: linear-gradient(
+      180deg,
+      #fefcf6 0%,
+      #fdf9f0 20%,
+      #fdf9f0 80%,
+      #fcf7ec 100%
+    );
+  }
+
+  /* 鎶樿 */
+  .paper-note.folded-corner::after {
+    content: '';
+    @apply absolute bottom-0 right-0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 20px 20px;
+    border-color: transparent transparent #e8dcc8 transparent;
+  }
+
+  /* ========== 灏侀潰 ========== */
+  .book-cover {
+    /* 鐨川搴曡壊 + 绾圭悊鍙犲姞 */
+    background:
+      linear-gradient(
+        160deg,
+        #3d2b1f 0%,
+        #5a3d2b 25%,
+        #6b4533 50%,
+        #5a3d2b 75%,
+        #3d2b1f 100%
+      ),
+      url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.06'/%3E%3C/svg%3E");
+  }
+
+  /* 鐑噾鏂囧瓧 */
+  .gold-foil {
+    background: linear-gradient(
+      180deg,
+      #c9a84c 0%,
+      #e8d48b 30%,
+      #f0e0a0 50%,
+      #c9a84c 70%,
+      #a07830 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  }
+
+  /* ========== 婊氬姩鎻愮ず ========== */
+  .scroll-indicator {
+    @apply flex flex-col items-center gap-2 text-ink-400;
+  }
+
+  .scroll-indicator span {
+    font-family: 'Ma Shan Zheng', 'Caveat', cursive;
+    font-size: 0.85rem;
+  }
+
+  /* ========== 椤甸潰鍒嗛殧绾?========== */
+  .page-divider {
+    @apply flex items-center justify-center gap-3 py-4;
+  }
+
+  .page-divider::before,
+  .page-divider::after {
+    content: '';
+    @apply flex-1 h-px;
+    background: linear-gradient(to right, transparent, #d4c4b5, transparent);
+  }
+
+  .page-divider-icon {
+    @apply text-ink-300 text-sm;
+    font-family: 'Ma Shan Zheng', cursive;
+  }
+
+  /* ========== 鑷畾涔夋粴鍔ㄦ潯 ========== */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(160, 140, 115, 0.3);
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* ========== Fullpage Scroll Container ========== */
+  .fp-container {
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* JS controls all scrolling via scrollTo */
+  }
+  .fp-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .fp-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Section with internal scroll 鈥?hook detects .fp-section-scroll for boundary check */
+  .fp-section-scroll {
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fp-section-scroll::-webkit-scrollbar {
+    width: 3px;
+  }
+  .fp-section-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .fp-section-scroll::-webkit-scrollbar-thumb {
+    background: rgba(160, 140, 115, 0.2);
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  /* 鏃嬭浆寰皟 */
+  .rotate--3 { transform: rotate(-3deg); }
+  .rotate--2 { transform: rotate(-2deg); }
+  .rotate--1 { transform: rotate(-1deg); }
+  .rotate-1 { transform: rotate(1deg); }
+  .rotate-2 { transform: rotate(2deg); }
+  .rotate-3 { transform: rotate(3deg); }
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: 'Cormorant Garamond', 'Noto Serif SC', Georgia, serif;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #3d3a37;
+    background: #fefcf8;
+    overflow-x: hidden;
+    background-image:
+      url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.015'/%3E%3C/svg%3E");
+  }
+
+  #root {
+    overflow-x: hidden;
+  }
+
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  ::selection {
+    background: rgba(212, 176, 106, 0.2);
+    color: #3d3a37;
+  }
+}
+
+@layer components {
+  /* ========== Magazine Page Container ========== */
+  .magazine-page {
+    @apply relative mx-auto;
+    background: linear-gradient(
+      180deg,
+      #fefcf8 0%,
+      #fdfbf7 5%,
+      #fefcf8 95%,
+      #fdfbf7 100%
+    );
+  }
+
+  /* ========== Editorial Grid ========== */
+  .editorial-grid {
+    @apply grid grid-cols-12 gap-6 md:gap-10;
+  }
+
+  /* ========== Gold Rule 鈥?thin decorative line ========== */
+  .gold-rule {
+    @apply h-px w-full;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(180, 150, 100, 0.2) 20%,
+      rgba(212, 176, 106, 0.5) 50%,
+      rgba(180, 150, 100, 0.2) 80%,
+      transparent 100%
+    );
+  }
+
+  .gold-rule-short {
+    @apply h-px mx-auto;
+    width: 64px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(212, 176, 106, 0.6),
+      transparent
+    );
+  }
+
+  /* ========== Editorial Headline ========== */
+  .editorial-headline {
+    @apply font-display font-bold tracking-wide;
+    line-height: 1.1;
+  }
+
+  .editorial-dek {
+    @apply font-body italic text-charcoal-500;
+    line-height: 1.5;
+  }
+
+  /* ========== Drop Cap ========== */
+  .drop-cap::first-letter {
+    float: left;
+    font-family: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+    font-size: 4.5em;
+    font-weight: 700;
+    line-height: 0.7;
+    padding-right: 0.15em;
+    padding-top: 0.04em;
+    color: #d4b06a;
+  }
+
+  /* ========== Magazine Caption ========== */
+  .magazine-caption {
+    @apply font-body italic text-xs tracking-wider text-charcoal-400;
+    line-height: 1.6;
+  }
+
+  /* ========== Section Number ========== */
+  .section-number {
+    font-family: 'Cinzel', 'Playfair Display', serif;
+    @apply text-champagne-400/60 text-sm tracking-[0.3em];
+  }
+
+  /* ========== Pull Quote ========== */
+  .pull-quote {
+    @apply font-display italic text-2xl md:text-3xl text-champagne-600 text-center leading-relaxed;
+    position: relative;
+  }
+
+  .pull-quote::before {
+    content: '\201C';
+    @apply absolute -top-6 -left-2 text-6xl text-champagne-300/50 font-serif;
+  }
+
+  /* ========== Magazine Folio (page number) ========== */
+  .folio {
+    font-family: 'Cinzel', serif;
+    @apply text-xs tracking-[0.2em] text-charcoal-300;
+  }
+
+  /* ========== Full-bleed Image ========== */
+  .full-bleed {
+    @apply relative w-full overflow-hidden;
+  }
+
+  .full-bleed img {
+    @apply w-full h-full object-cover;
+  }
+
+  /* ========== Image Overlay (for hero/text on image) ========== */
+  .image-overlay {
+    @apply absolute inset-0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.1) 0%,
+      rgba(0,0,0,0.0) 40%,
+      rgba(0,0,0,0.0) 70%,
+      rgba(0,0,0,0.25) 100%
+    );
+  }
+
+  /* ========== Luxury Card ========== */
+  .luxury-card {
+    @apply relative bg-ivory-50;
+    box-shadow:
+      0 2px 20px rgba(0, 0, 0, 0.03),
+      0 0 0 1px rgba(180, 150, 100, 0.08);
+  }
+
+  /* ========== Letterbox for video ========== */
+  .letterbox {
+    @apply relative w-full overflow-hidden bg-charcoal-900;
+    aspect-ratio: 16 / 9;
+  }
+
+  /* ========== Custom Scrollbar ========== */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(180, 150, 100, 0.25);
+    border-radius: 2px;
+  }
+
+  /* ========== Fullpage Scroll Container ========== */
+  .fp-container {
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .fp-container::-webkit-scrollbar { display: none; }
+
+  .fp-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .fp-section-scroll {
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fp-section-scroll::-webkit-scrollbar { width: 3px; }
+  .fp-section-scroll::-webkit-scrollbar-track { background: transparent; }
+  .fp-section-scroll::-webkit-scrollbar-thumb {
+    background: rgba(180, 150, 100, 0.15);
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Nunito', 'Noto Serif SC', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    color: #55483d;
+    background: #fdfaf5;
+    overflow-x: hidden;
+  }
+
+  #root { overflow-x: hidden; }
+  html, body { max-width: 100vw; overflow-x: hidden; }
+
+  img { max-width: 100%; height: auto; display: block; }
+
+  ::selection {
+    background: rgba(220, 180, 150, 0.25);
+    color: #55483d;
+  }
+}
+
+@layer components {
+  /* ===== Fullpage Scroll ===== */
+  .fp-container {
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .fp-container::-webkit-scrollbar { display: none; }
+
+  .fp-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .fp-section-scroll {
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fp-section-scroll::-webkit-scrollbar { width: 3px; }
+  .fp-section-scroll::-webkit-scrollbar-track { background: transparent; }
+  .fp-section-scroll::-webkit-scrollbar-thumb {
+    background: rgba(200, 170, 140, 0.2);
+    border-radius: 2px;
+  }
+
+  /* ===== Paper Page ===== */
+  .paper-page {
+    background: linear-gradient(180deg, #fefdfb 0%, #fdfaf5 5%, #fdf9f2 50%, #fdfaf5 95%, #fefdfb 100%);
+    box-shadow: 0 0 40px rgba(140, 120, 90, 0.04), 0 0 0 1px rgba(180, 150, 120, 0.06);
+  }
+
+  /* ===== Decorative Dot Pattern Background ===== */
+  .dot-bg {
+    background-image: radial-gradient(circle, rgba(200, 170, 140, 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* ===== Sticker Label ===== */
+  .sticker-label {
+    @apply inline-block px-3 py-1 rounded-full text-xs tracking-wide;
+    background: linear-gradient(135deg, #fdf2ec 0%, #fae3d5 100%);
+    border: 1px solid rgba(220, 170, 140, 0.2);
+    color: #965536;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+  }
+
+  /* ===== Growth Stamp ===== */
+  .growth-stamp {
+    @apply flex items-center justify-center rounded-full border-2 text-center;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #fefdfb, #fdf9f2);
+    border-color: rgba(200, 170, 140, 0.3);
+    box-shadow: 0 1px 4px rgba(100, 80, 60, 0.1), inset 0 0 0 2px rgba(255,255,255,0.6);
+    transform: rotate(-5deg);
+  }
+
+  .growth-stamp-content {
+    font-family: 'Dancing Script', cursive;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    color: #8c7a68;
+  }
+
+  /* ===== Timeline Dot ===== */
+  .timeline-dot {
+    @apply relative flex items-center justify-center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fdf2ec, #fdfaf5);
+    border: 2px solid rgba(200, 160, 130, 0.3);
+    box-shadow: 0 2px 6px rgba(160, 120, 80, 0.08);
+  }
+
+  .timeline-dot-inner {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #d9b08a;
+  }
+
+  /* ===== Soft Separator ===== */
+  .soft-separator {
+    @apply h-px w-full;
+    background: linear-gradient(to right, transparent, rgba(200, 170, 140, 0.25), rgba(200, 170, 140, 0.25), transparent);
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+}

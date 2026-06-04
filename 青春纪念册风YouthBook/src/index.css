@@ -1,0 +1,333 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: 'Noto Serif SC', 'Source Serif 4', Georgia, serif;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #4a3728;
+    background: #f5f0e6;
+    overflow-x: hidden;
+    /* 纸张纹理底色 */
+    background-image:
+      url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+  }
+
+  #root {
+    overflow-x: hidden;
+  }
+
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* 选中颜色 */
+  ::selection {
+    background: rgba(180, 140, 100, 0.25);
+    color: #4a3728;
+  }
+}
+
+@layer components {
+  /* ========== 纸张页面容器 ========== */
+  .book-page {
+    @apply relative mx-auto max-w-4xl;
+    background: linear-gradient(
+      180deg,
+      #fdfaf3 0%,
+      #faf6ee 8%,
+      #f5f0e6 50%,
+      #faf6ee 92%,
+      #fdfaf3 100%
+    );
+    box-shadow:
+      0 0 40px rgba(0, 0, 0, 0.04),
+      0 0 0 1px rgba(0, 0, 0, 0.02),
+      0 4px 12px rgba(0, 0, 0, 0.03);
+  }
+
+  /* 页面展开效果 */
+  .book-spread {
+    @apply relative;
+    /* 模拟书脊阴影 */
+    background:
+      linear-gradient(to right, transparent 48%, rgba(0,0,0,0.015) 49%, rgba(0,0,0,0.03) 50%, rgba(0,0,0,0.015) 51%, transparent 52%);
+  }
+
+  /* ========== 拍立得照片 ========== */
+  .polaroid {
+    @apply bg-white inline-block;
+    padding: 10px 10px 32px 10px;
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: all 0.35s ease;
+  }
+
+  .polaroid:hover {
+    box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.13), 0 2px 6px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px) rotate(0deg) !important;
+    z-index: 20;
+  }
+
+  .polaroid img {
+    @apply w-full object-cover;
+    aspect-ratio: 1;
+  }
+
+  .polaroid-caption {
+    @apply text-center text-xs text-ink-600 mt-1.5;
+    font-family: 'Ma Shan Zheng', 'Caveat', cursive;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  /* ========== 胶卷条 ========== */
+  .film-strip {
+    @apply relative bg-gray-900 py-4 overflow-hidden;
+    /* 上方齿孔 */
+    background-image:
+      radial-gradient(circle, rgba(245,240,230,0.5) 1.2px, transparent 1.2px),
+      radial-gradient(circle, rgba(245,240,230,0.5) 1.2px, transparent 1.2px);
+    background-size: 18px 24px, 18px 24px;
+    background-position: 0 6px, 0 calc(100% - 6px);
+    background-repeat: repeat-x, repeat-x;
+  }
+
+  .film-strip-inner {
+    @apply flex gap-3 px-4 overflow-x-auto;
+    scrollbar-width: none;
+  }
+
+  .film-strip-inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .film-frame {
+    @apply flex-shrink-0 overflow-hidden rounded-sm;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #1a1a1a;
+  }
+
+  .film-frame img {
+    @apply w-full h-full object-cover;
+  }
+
+  /* ========== 手写标题 ========== */
+  .handwritten-title {
+    font-family: 'Ma Shan Zheng', 'ZCOOL KuaiLe', cursive;
+    @apply text-ink-700 tracking-wide;
+    text-shadow: 1px 1px 0 rgba(180, 150, 120, 0.2);
+  }
+
+  .handwritten-subtitle {
+    font-family: 'Caveat', 'Ma Shan Zheng', cursive;
+    @apply text-ink-500;
+  }
+
+  /* ========== 时间轴 ========== */
+  .timeline-line {
+    @apply absolute left-1/2 top-0 bottom-0 w-px;
+    background: repeating-linear-gradient(
+      to bottom,
+      #c4a882 0px,
+      #c4a882 4px,
+      transparent 4px,
+      transparent 12px
+    );
+  }
+
+  /* ========== 纸胶带 ========== */
+  .washi-tape {
+    @apply absolute -top-3 left-1/2 -translate-x-1/2 rotate-[-2deg];
+    width: 60px;
+    height: 18px;
+    background: rgba(220, 200, 160, 0.7);
+    border: 1px solid rgba(180, 155, 120, 0.3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .washi-tape-accent {
+    background: rgba(200, 180, 140, 0.65);
+  }
+
+  /* ========== 便签纸条 ========== */
+  .paper-note {
+    @apply relative bg-paper-50 p-5;
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.03);
+    background: linear-gradient(
+      180deg,
+      #fefcf6 0%,
+      #fdf9f0 20%,
+      #fdf9f0 80%,
+      #fcf7ec 100%
+    );
+  }
+
+  /* 折角 */
+  .paper-note.folded-corner::after {
+    content: '';
+    @apply absolute bottom-0 right-0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 20px 20px;
+    border-color: transparent transparent #e8dcc8 transparent;
+  }
+
+  /* ========== 封面 ========== */
+  .book-cover {
+    /* 皮质底色 + 纹理叠加 */
+    background:
+      linear-gradient(
+        160deg,
+        #3d2b1f 0%,
+        #5a3d2b 25%,
+        #6b4533 50%,
+        #5a3d2b 75%,
+        #3d2b1f 100%
+      ),
+      url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.06'/%3E%3C/svg%3E");
+  }
+
+  /* 烫金文字 */
+  .gold-foil {
+    background: linear-gradient(
+      180deg,
+      #c9a84c 0%,
+      #e8d48b 30%,
+      #f0e0a0 50%,
+      #c9a84c 70%,
+      #a07830 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+  }
+
+  /* ========== 滚动提示 ========== */
+  .scroll-indicator {
+    @apply flex flex-col items-center gap-2 text-ink-400;
+  }
+
+  .scroll-indicator span {
+    font-family: 'Ma Shan Zheng', 'Caveat', cursive;
+    font-size: 0.85rem;
+  }
+
+  /* ========== 页面分隔线 ========== */
+  .page-divider {
+    @apply flex items-center justify-center gap-3 py-4;
+  }
+
+  .page-divider::before,
+  .page-divider::after {
+    content: '';
+    @apply flex-1 h-px;
+    background: linear-gradient(to right, transparent, #d4c4b5, transparent);
+  }
+
+  .page-divider-icon {
+    @apply text-ink-300 text-sm;
+    font-family: 'Ma Shan Zheng', cursive;
+  }
+
+  /* ========== 自定义滚动条 ========== */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(160, 140, 115, 0.3);
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* ========== Fullpage Scroll Container ========== */
+  .fp-container {
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* JS controls all scrolling via scrollTo */
+  }
+  .fp-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .fp-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Section with internal scroll — hook detects .fp-section-scroll for boundary check */
+  .fp-section-scroll {
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fp-section-scroll::-webkit-scrollbar {
+    width: 3px;
+  }
+  .fp-section-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .fp-section-scroll::-webkit-scrollbar-thumb {
+    background: rgba(160, 140, 115, 0.2);
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  /* 旋转微调 */
+  .rotate--3 { transform: rotate(-3deg); }
+  .rotate--2 { transform: rotate(-2deg); }
+  .rotate--1 { transform: rotate(-1deg); }
+  .rotate-1 { transform: rotate(1deg); }
+  .rotate-2 { transform: rotate(2deg); }
+  .rotate-3 { transform: rotate(3deg); }
+}

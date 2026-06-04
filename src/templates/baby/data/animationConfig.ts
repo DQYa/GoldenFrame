@@ -1,0 +1,14 @@
+import type { Transition } from 'framer-motion';
+
+export const easeOutExpo: Transition['ease'] = [0.25, 0.1, 0.25, 1] as const;
+export const easeInOut: Transition['ease'] = [0.4, 0, 0.2, 1] as const;
+
+export const fadeSlideUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: easeOutExpo } },
+};
+
+export const fadeSlideUpStagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
